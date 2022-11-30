@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
 /*
@@ -13,13 +14,18 @@ use App\Models\Listing;
 |
 */
 
+//Common Resource Rotes!!
+//index - Show all listings
+//show - Show single listing
+//create - Show form to create new listing
+//store - Store new listing
+//edit - Show form to edit listing
+//update - Update listing
+//destroy - Delete listing
+
+
 //all listings
-Route::get('/', function () {
-    return view('listings', [
-        'heading'=>'Latest Listings',
-        'listings'=> Listing::all()
-    ]);
-});
+Route::get('/', [ListingController::class,'index']);
 
 //single listing
 
@@ -38,10 +44,13 @@ Route::get('/', function () {
     
 }); */
 
+
+//show Create Form
+Route::get('/listings/create', [ListingController::class,'create']);
+
+//sotre Form
+Route::post('/listings', [ListingController::class,'store']);
+
 //Route model binding
-Route::get('/listings/{listing}', function (Listing $listing) {
-    return view('listing', [
-        'listing'=>$listing
-    ]);
-});
+Route::get('/listings/{listing}', [ListingController::class,'show']);
 
