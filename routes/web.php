@@ -23,9 +23,25 @@ Route::get('/', function () {
 
 //single listing
 
-Route::get('/listings/{id}', function ($id) {
-    return view('listing', [
+/* One way of doing it to check if id exists
+    Route::get('/listings/{id}', function ($id) {
+    $listing = Listing::find($id);
+    if($listing){
+        return view('listing', [
         
-        'listing'=> Listing::find($id)
+            'listing'=> $listing
+        ]);
+    }
+    else{
+        abort('400');
+    }
+    
+}); */
+
+//Route model binding
+Route::get('/listings/{listing}', function (Listing $listing) {
+    return view('listing', [
+        'listing'=>$listing
     ]);
 });
+
